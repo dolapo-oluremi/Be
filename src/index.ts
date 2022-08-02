@@ -1,8 +1,14 @@
 import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cors from 'cors';
+
 
 const app: Application = express();
+
+app.use(cors<Request>())
+
+
 app.use(bodyParser.urlencoded({
     extended: true
 }))
