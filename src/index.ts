@@ -19,7 +19,8 @@ mongoose.connect("mongodb://localhost:27017/postsDB");
 
 const postsSchema = new mongoose.Schema({
     title: {type: String},
-    body: {type: String}
+    body: {type: String},
+    id:{type: Number}
 })
 
 
@@ -38,16 +39,17 @@ app.get('/', (req: Request, res: Response) => {
     })
 })
 
-app.get('/posts/:title', (req: Request, res: Response) => {
-    Post.findOne({ title: req.params.title }, (err: any, post: any) => {
+app.get('/posts/:id', (req: Request, res: Response) => {
+    console.log(req.params);
+    
+    Post.findOne({ id: Number(req.params.id) }, (err: any, post: any) => {
         res.send(post)
     })
 })
 
-app.patch('/posts/:title', (req: Request, res: Response) => {
-    console.log(req.body)
+app.patch('/posts/:id', (req: Request, res: Response) => {
     Post.updateOne(
-        { title: req.params.title },
+        { id: req.params.id },
         { $set: req.body },
         function (err: any) {
             if (!err) {
